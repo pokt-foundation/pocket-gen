@@ -13,6 +13,7 @@ const nodeExternalSubdomain = 'pokt'
 const rpcPortPrefix = '42'
 const p2pPortPrefix = '43'
 
+const nodeIncrement = 1
 const nodeDomain = 'nachonodes.com'
 const baseOutputDirectory = '/home/alex/nodes/pokt'
 const baseDataDirectory = '/mnt/pokt'
@@ -68,7 +69,7 @@ async function processNginxReplacements(nodes: Array<Node>) {
   fs.copyFile('./src/templates/default.conf', destination, async (err: any) => {
     if (err) throw err;
 
-    let inc = 1
+    let inc = nodeIncrement
     let servers = ''
 
     for (const node of nodes) {
@@ -109,7 +110,7 @@ async function processComposeReplacements(nodes: Array<Node>) {
     if (err) throw err;
 
     // Build services list
-    let inc = 1
+    let inc = nodeIncrement
     let services = ''
     let firstPort = ''
     let lastPort = ''
@@ -159,7 +160,7 @@ async function processComposeReplacements(nodes: Array<Node>) {
 }
 
 async function processNodeReplacements(nodes: Array<Node>) {
-  let inc = 1
+  let inc = nodeIncrement
   for (const node of nodes) {
     nodeReplace(inc, node.privateKey)
     inc++
