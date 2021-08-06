@@ -1,0 +1,23 @@
+  {{nodeMoniker}}:
+    container_name: "{{nodeMoniker}}"
+    image: "{{nodeImage}}"
+    cpus: "{{nodeCPUs}}"
+    mem_limit: "{{nodeMemLimit}}"
+    privileged: true
+    command: "pocket start"
+    expose:
+      - "{{rpcPort}}"
+    ports:
+      - "{{p2pPort}}:{{p2pPort}}"
+    env_file: ./{{inc}}/env
+    volumes:
+        - "../chains.json:/home/app/.pocket/config/chains.json"
+        - "../genesis.json:/home/app/.pocket/config/genesis.json"
+        - "./{{inc}}/config.json:/home/app/.pocket/config/config.json"
+        - "{{poktDataDirectory}}/{{inc}}:/home/app/.pocket/data"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - default
