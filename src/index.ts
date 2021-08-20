@@ -21,7 +21,42 @@ async function main() {
     await processNodeReplacements(nodes)
     await processComposeReplacements(nodes)
     await processNginxReplacements(nodes)
+    await processCSVReplacements(nodes)
     console.log('Done node replacements.')
+  });
+}
+
+// nodes.csv
+async function processCSVReplacements(nodes: Array<Node>) {
+  let destination = `${conf.outputDirectory}/${conf.nodeBranding}-nodes.csv`
+  fs.copyFile('./src/templates/nodes.csv', destination, async (err: any) => {
+    if (err) throw err;
+
+    let inc = conf.nodeIncrement
+    let servers = ''
+
+    for (const node of nodes) {
+      const serverLine = `${conf.nodeExternalSubdomain}-${inc},${node.address},,${conf.rpcPortPrefix}${zeroPad(inc,2)}`
+      if (servers === '') {
+        servers = `name,address,publicKey,port\n${serverLine}`
+      } else {
+        servers = `${servers}\n${serverLine}`
+      }
+      inc++
+    }
+
+    const options = {
+      files: destination,
+      from: [/{{servers}}/g],
+      to: [`${servers}`],
+    }
+  
+    try {
+      const results = await replace(options)
+    }
+    catch (error) {
+      console.error('Error occurred:', error)
+    }
   });
 }
 
