@@ -1,3 +1,4 @@
 src/accounts/*.csv
 src/output
+src/config.ts
 node_modules
