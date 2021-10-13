@@ -61,7 +61,7 @@
           "UPNP": false,
           "AddrBook": "config/addrbook.json",
           "AddrBookStrict": false,
-          "MaxNumInboundPeers": 21,
+          "MaxNumInboundPeers": 14,
           "MaxNumOutboundPeers": 7,
           "UnconditionalPeerIDs": "{{unconditionalPeerIDs}}",
           "PersistentPeersMaxDialPeriod": 0,

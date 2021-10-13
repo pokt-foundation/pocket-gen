@@ -4,7 +4,8 @@
     cpus: "{{nodeCPUs}}"
     mem_limit: "{{nodeMemLimit}}"
     privileged: true
-    command: "pocket start"
+    command: "pocket start --useCache"
+    restart: unless-stopped
     expose:
       - "{{rpcPort}}"
     ports:
