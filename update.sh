@@ -22,13 +22,8 @@ if [ -z "$branding" ]; then
     exit
 fi
 
-if [ -z "$outputDir" ]; then
-    echo "-o for config output directory"
-    exit
-fi
-
-if [ -z "$dataDir" ]; then
-    echo "-d for data directory"
+if [ -z "$subdomain" ]; then
+    echo "-s for subdomain"
     exit
 fi
 
