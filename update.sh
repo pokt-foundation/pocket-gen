@@ -44,7 +44,7 @@ fi
 echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir --subdomain=$subdomain --domain=$domain --increment=$increment"
 npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} --increment=${increment} && chown -R 1005:1001 ${outputDir}/${branding}/*
 
-if [ -z "$restart" ]; then
+if [ -n "$restart" ]; then
     echo "Restarting"
     docker-compose -f ${outputDir}/${branding}/docker-compose.yml down && docker-compose -f ${outputDir}/${branding}/docker-compose.yml up -d
     exit
