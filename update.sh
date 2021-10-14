@@ -41,6 +41,6 @@ npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir
 
 if [ -n "$restart" ]; then
     echo "Restarting"
-    docker-compose -f ${outputDir}/${branding}/docker-compose.yml down && docker-compose -f ${outputDir}/${branding}/docker-compose.yml up -d
+    docker-compose -f ${outputDir}/${branding}/docker-compose.yml down && docker-compose -f ${outputDir}/${branding}/docker-compose.yml up -d --remove-orphans
     exit
 fi
