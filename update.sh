@@ -5,7 +5,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     exit
 fi
 
-while getopts b:v:o:d:s:m: flag
+while getopts b:v:o:d:s:m:r: flag
 do
     case "${flag}" in
         b) branding=${OPTARG};;
@@ -14,6 +14,8 @@ do
         d) dataDir=${OPTARG};;
         s) subdomain=${OPTARG};;
         m) domain=${OPTARG};;
+        i) increment=${OPTARG};;
+        r) restart=${OPTARG};;
     esac
 done
 
@@ -34,5 +36,11 @@ else
     exit
 fi
 
-echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir --subdomain=$subdomain --domain=$domain"
-npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} && chown -R 1005:1001 ${outputDir}/${branding}/*
+echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir --subdomain=$subdomain --domain=$domain --increment=$increment"
+npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} --increment=${increment} && chown -R 1005:1001 ${outputDir}/${branding}/*
+
+if [ -z "$restart" ]; then
+    echo "Restarting"
+    docker-compose -f ${outputDir}/${branding}/docker-compose.yml down && docker-compose -f ${outputDir}/${branding}/docker-compose.yml up -d
+    exit
+fi
