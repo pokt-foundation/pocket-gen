@@ -34,12 +34,7 @@ if [ -z "$subdomain" ]; then
     exit
 fi
 
-if [[ -f "./src/$branding.config.ts" ]]; then
-    git pull
-else
-    echo "./src/$branding.config.ts does not exist"
-    exit
-fi
+git pull
 
 echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir --subdomain=$subdomain --domain=$domain --increment=$increment"
 npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} --increment=${increment} && chown -R 1005:1001 ${outputDir}/${branding}/*
