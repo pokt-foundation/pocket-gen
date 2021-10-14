@@ -37,7 +37,5 @@ else
     exit
 fi
 
-cp ./src/${branding}.config.ts ./src/config.ts
 echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir"
 npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} && chown -R 1005:1001 ${dest}/${branding}/*
-rm ./src/config.ts
