@@ -7,7 +7,7 @@ export const p2pPortPrefix = '43'
 
 export const nodeIncrement = 1
 export const nodeDomain = (args['domain']) ? args['domain'] : 'nachoracks.com'
-export const baseOutputDirectory = (args['outputDir']) ? args['outputDir'] : '/root/nodes/pokt'
+export const baseOutputDirectory = (args['outputDir']) ? args['outputDir'] : '/root/pokt'
 export const baseDataDirectory = (args['dataDir']) ? args['dataDir'] : '/data'
 
 // Global
