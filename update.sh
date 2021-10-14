@@ -24,6 +24,11 @@ if [ -z "$branding" ]; then
     exit
 fi
 
+if [ -z "$outputDir" ]; then
+    echo "-o for node outputDir"
+    exit
+fi
+
 if [ -z "$subdomain" ]; then
     echo "-s for subdomain"
     exit
