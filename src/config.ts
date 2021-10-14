@@ -6,9 +6,9 @@ export const rpcPortPrefix = '42'
 export const p2pPortPrefix = '43'
 
 export const nodeIncrement = 1
-export const nodeDomain = (args['domain']) ? args['domain'] : 'nachonodes.com'
-export const baseOutputDirectory = (args['outputDir']) ? args['outputDir'] : '/home/alex/nodes/pokt'
-export const baseDataDirectory = (args['dataDir']) ? args['dataDir'] : '/mnt/pokt'
+export const nodeDomain = (args['domain']) ? args['domain'] : 'nachoracks.com'
+export const baseOutputDirectory = (args['outputDir']) ? args['outputDir'] : '/root/nodes/pokt'
+export const baseDataDirectory = (args['dataDir']) ? args['dataDir'] : '/data'
 
 // Global
 export const outputDirectory = `${baseOutputDirectory}/${nodeBranding}`
