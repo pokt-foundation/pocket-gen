@@ -5,7 +5,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     exit
 fi
 
-while getopts b:v:o:d:s:m:r: flag
+while getopts b:v:o:d:s:m:i:r: flag
 do
     case "${flag}" in
         b) branding=${OPTARG};;
