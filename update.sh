@@ -5,12 +5,13 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     exit
 fi
 
-while getopts b:v:d: flag
+while getopts b:v:o:d: flag
 do
     case "${flag}" in
         b) branding=${OPTARG};;
         v) version=${OPTARG};;
-        d) dest=${OPTARG}
+        o) outputDir=${OPTARG};;
+        d) dataDir=${OPTARG}
     esac
 done
 
@@ -19,8 +20,13 @@ if [ -z "$branding" ]; then
     exit
 fi
 
-if [ -z "$dest" ]; then
-    echo "-d for destination directory"
+if [ -z "$outputDir" ]; then
+    echo "-o for config output directory"
+    exit
+fi
+
+if [ -z "$dataDir" ]; then
+    echo "-d for data directory"
     exit
 fi
 
@@ -32,6 +38,6 @@ else
 fi
 
 cp ./src/${branding}.config.ts ./src/config.ts
-echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --dest=$dest"
-npx ts-node src/index.ts --branding=${branding} --version=${version} --dest=${dest} && chown -R 1005:1001 ${dest}/${branding}/*
+echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir"
+npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} && chown -R 1005:1001 ${dest}/${branding}/*
 rm ./src/config.ts

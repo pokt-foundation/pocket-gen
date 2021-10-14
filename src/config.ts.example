@@ -7,7 +7,7 @@ export const p2pPortPrefix = '43'
 
 export const nodeIncrement = 1
 export const nodeDomain = (args['domain']) ? args['domain'] : 'nachonodes.com'
-export const baseOutputDirectory = (args['dest']) ? args['dest'] : '/home/alex/nodes/pokt'
+export const baseOutputDirectory = (args['outputDir']) ? args['outputDir'] : '/home/alex/nodes/pokt'
 export const baseDataDirectory = (args['dataDir']) ? args['dataDir'] : '/mnt/pokt'
 
 // Global
