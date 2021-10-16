@@ -36,7 +36,7 @@ if [ -z "$subdomain" ]; then
 fi
 
 echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir --subdomain=$subdomain --domain=$domain --increment=$increment --allowIP=$allowIP"
-npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} --increment=${increment} --allowIP=${allowIP} && chown -R 1005:1001 ${outputDir}/${branding}/*
+npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} --increment=${increment} --allowIP="${allowIP}" && chown -R 1005:1001 ${outputDir}/${branding}/*
 
 if [ -n "$restart" ]; then
     echo "Restarting"
