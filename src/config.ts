@@ -25,7 +25,7 @@ export const poktDataDirectory = `${baseDataDirectory}/${nodeBranding}`
 
 // config.json
 export const monikerPrefix = (args['subdomain']) ? args['subdomain'] : 'pokt'
-export const logLevel = '*:info, *:error'
+export const logLevel = (args['logLevel']) ? args['logLevel'] : '*:info, *:error'
 export const rpcPort = '8082'
 export const seeds = '03b74fa3c68356bb40d58ecc10129479b159a145@seed1.mainnet.pokt.network:20656,64c91701ea98440bc3674fdb9a99311461cdfd6f@seed2.mainnet.pokt.network:21656,a5f4a4cd88db9fd5def1574a0bffef3c6f354a76@seed9.mainnet.pokt.network:28856'
 export const persistentpeers = ''

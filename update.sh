@@ -5,7 +5,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     exit
 fi
 
-while getopts b:v:o:d:s:m:i:r:a: flag
+while getopts b:v:o:d:s:m:i:r:a:l: flag
 do
     case "${flag}" in
         b) branding=${OPTARG};;
@@ -16,7 +16,8 @@ do
         m) domain=${OPTARG};;
         i) increment=${OPTARG};;
         r) restart=${OPTARG};;
-        a) allowIP=${OPTARG}
+        a) allowIP=${OPTARG};;
+        l) logLevel=${OPTARG};;
     esac
 done
 
@@ -35,8 +36,8 @@ if [ -z "$subdomain" ]; then
     exit
 fi
 
-echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir --subdomain=$subdomain --domain=$domain --increment=$increment --allowIP=$allowIP"
-npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} --increment=${increment} --allowIP="${allowIP}" && chown -R 1005:1001 ${outputDir}/${branding}/*
+echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir --subdomain=$subdomain --domain=$domain --increment=$increment --allowIP=$allowIP --logLevel=$logLevel"
+npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} --increment=${increment} --allowIP="${allowIP} --logLevel=${logLevel}" && chown -R 1005:1001 ${outputDir}/${branding}/*
 
 if [ -n "$restart" ]; then
     echo "Restarting"
