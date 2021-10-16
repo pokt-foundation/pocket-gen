@@ -15,8 +15,7 @@ export const outputDirectory = `${baseOutputDirectory}/${nodeBranding}`
 export const accountsFile = `./src/accounts/${nodeBranding}nodes.csv`
 
 // nginx default.conf
-// export const allowIPRange = '10.0.0.0/24'
-export const allowIPRange = '192.168.0.0/16'
+export const allowIPRange = (args['allowIP']) ? args['allowIP'] : '192.168.0.0/16'
 
 // docker-compose.yml
 export const nodeImage = (args['version']) ? `pocketfoundation/pocket-core:${args['version']}` : 'pocketfoundation/pocket-core:latest'
