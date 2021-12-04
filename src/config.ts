@@ -19,7 +19,7 @@ export const allowIPRange = (args['allowIP']) ? args['allowIP'] : '192.168.0.0/1
 
 // docker-compose.yml
 export const nodeImage = (args['version']) ? `pocketfoundation/pocket-core:${args['version']}` : 'pocketfoundation/pocket-core:latest'
-export const nodeCPUs = '6'
+export const nodeCPUs = '8'
 export const nodeMemLimit = '8G'
 export const poktDataDirectory = `${baseDataDirectory}/${nodeBranding}`
 
