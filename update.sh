@@ -5,7 +5,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     exit
 fi
 
-while getopts b:v:o:d:s:m:i:r:a:l: flag
+while getopts b:v:o:d:s:m:i:r:a:l:h: flag
 do
     case "${flag}" in
         b) branding=${OPTARG};;
@@ -18,6 +18,7 @@ do
         r) restart=${OPTARG};;
         a) allowIP=${OPTARG};;
         l) logLevel=${OPTARG};;
+        h) haproxyAuth=${OPTARG};;
     esac
 done
 
@@ -36,8 +37,8 @@ if [ -z "$subdomain" ]; then
     exit
 fi
 
-echo "Running npx ts-node src/index.ts --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir --subdomain=$subdomain --domain=$domain --increment=$increment --allowIP=$allowIP --logLevel=$logLevel"
-npx ts-node src/index.ts --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} --increment=${increment} --allowIP="${allowIP}" --logLevel=${logLevel} && chown -R 1005:1001 ${outputDir}/${branding}/*
+echo "Running npx ts-node src/index.ts --haproxyAuth=${haproxyAuth} --branding=$branding --version=$version --outputDir=$outputDir --dataDir=$dataDir --subdomain=$subdomain --domain=$domain --increment=$increment --allowIP=$allowIP --logLevel=$logLevel"
+npx ts-node src/index.ts --haproxyAuth=${haproxyAuth} --branding=${branding} --version=${version} --outputDir=${outputDir} --dataDir=${dataDir} --subdomain=${subdomain} --domain=${domain} --increment=${increment} --allowIP="${allowIP}" --logLevel=${logLevel} && chown -R 1005:1001 ${outputDir}/${branding}/*
 
 if [ -n "$restart" ]; then
     echo "Restarting"

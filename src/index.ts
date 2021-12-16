@@ -20,7 +20,7 @@ async function main() {
   .on('end', async () => {
     await processNodeReplacements(nodes)
     await processComposeReplacements(nodes)
-    await processNginxReplacements(nodes)
+    await processHAProxyReplacements(nodes)
     await processCSVReplacements(nodes)
     console.log('Done node replacements.')
   });
@@ -60,12 +60,12 @@ async function processCSVReplacements(nodes: Array<Node>) {
   });
 }
 
-// NGINX
-async function processNginxReplacements(nodes: Array<Node>) {
-  const serverBlock = fs.readFileSync('./src/templates/nginx.server.block')
+// HAProxy
+async function processHAProxyReplacements(nodes: Array<Node>) {
+  const serverBlock = fs.readFileSync('./src/templates/haproxy.server.block')
 
-  let destination = `${conf.outputDirectory}/default.conf`
-  fs.copyFile('./src/templates/default.conf', destination, async (err: any) => {
+  let destination = `${conf.outputDirectory}/haproxy.cfg`
+  fs.copyFile('./src/templates/haproxy.cfg', destination, async (err: any) => {
     if (err) throw err;
 
     let inc = conf.nodeIncrement
@@ -86,8 +86,8 @@ async function processNginxReplacements(nodes: Array<Node>) {
 
     const options = {
       files: destination,
-      from: [/{{servers}}/g],
-      to: [`${servers}`],
+      from: [/{{servers}}/g, /{{haproxyAuth}}/],
+      to: [`${servers}`, `${conf.haproxyAuth}`],
     }
   
     try {
@@ -102,7 +102,7 @@ async function processNginxReplacements(nodes: Array<Node>) {
 // DOCKER COMPOSE
 async function processComposeReplacements(nodes: Array<Node>) {
   const poktBlock = fs.readFileSync('./src/templates/compose.pokt.block')
-  const nginxBlock = fs.readFileSync('./src/templates/compose.nginx.block')
+  const haproxyBlock = fs.readFileSync('./src/templates/compose.haproxy.block')
 
   let destination = `${conf.outputDirectory}/docker-compose.yml`
   fs.copyFile('./src/templates/docker-compose.yml', destination, async (err: any) => {
@@ -135,13 +135,13 @@ async function processComposeReplacements(nodes: Array<Node>) {
     }
     lastPort = `${conf.rpcPortPrefix}${zeroPad(inc-1,2)}`
 
-    let nginxBlockCopy = nginxBlock.toString()
-    nginxBlockCopy = nginxBlockCopy
+    let haproxyBlockCopy = haproxyBlock.toString()
+    haproxyBlockCopy = haproxyBlockCopy
       .replace(/{{nodeBranding}}/g, `${conf.nodeBranding}`)
-      .replace(/{{nginxPortRange}}/g, `${firstPort}-${lastPort}`)
+      .replace(/{{haproxyPortRange}}/g, `${firstPort}-${lastPort}`)
       .replace(/{{dependsOn}}/g, `${dependsOn}`)
 
-    services = `\n\n${nginxBlockCopy}${services}`
+    services = `\n\n${haproxyBlockCopy}${services}`
 
     const options = {
       files: destination,

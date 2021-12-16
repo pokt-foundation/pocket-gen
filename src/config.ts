@@ -14,8 +14,9 @@ export const baseDataDirectory = (args['dataDir']) ? args['dataDir'] : '/data'
 export const outputDirectory = `${baseOutputDirectory}/${nodeBranding}`
 export const accountsFile = `./src/accounts/${nodeBranding}nodes.csv`
 
-// nginx default.conf
+// haproxy.cfg
 export const allowIPRange = (args['allowIP']) ? args['allowIP'] : '192.168.0.0/16'
+export const haproxyAuth = (args['haproxyAuth']) ? args['haproxyAuth'] : 'user:pass'
 
 // docker-compose.yml
 export const nodeImage = (args['version']) ? `pocketfoundation/pocket-core:${args['version']}` : 'pocketfoundation/pocket-core:latest'

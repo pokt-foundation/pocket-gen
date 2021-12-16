@@ -1,0 +1,29 @@
+frontend {{nodeBranding}}{{inc}}
+
+ # CORS Headers
+ http-response set-header Access-Control-Allow-Origin "*"
+ http-response set-header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+ http-response set-header Access-Control-Max-Age 3628800
+ http-response set-header Access-Control-Allow-Methods "GET, OPTIONS, POST"
+
+ # Version open
+ acl version_endpoint path /v1
+ http-request allow if version_endpoint
+
+ # All v1 endpoints open
+ acl open_endpoint path_reg -i ^\/v1\/(dispatch|relay|challenge|sim)
+ http-request allow if open_endpoint
+
+ # Base URL restricted
+ acl pocket_allowed src {{allowIPRange}}
+ acl restricted_endpoint path_beg /
+ http-request deny if restricted_endpoint !pocket_allowed
+ 
+ bind *:{{rpcPort}} ssl crt /etc/ssl/full.pem
+ mode http
+ default_backend {{nodeBranding}}{{inc}}
+
+backend {{nodeBranding}}{{inc}}
+ filter compression
+ compression algo gzip
+ server {{nodeBranding}}{{inc}} {{nodeBranding}}{{inc}}:8082

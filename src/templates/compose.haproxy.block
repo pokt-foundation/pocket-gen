@@ -1,0 +1,19 @@
+  haproxy:
+    container_name: "haproxy-{{nodeBranding}}"
+    image: "pocketfoundation/haproxy-pokt:latest"
+    cpus: "4"
+    mem_limit: "4G"
+    restart: unless-stopped
+    ports:
+      - "{{haproxyPortRange}}:{{haproxyPortRange}}"
+      - "8050:8050"
+    volumes:
+      - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
+      - "../full.pem:/etc/ssl/full.pem"
+    depends_on:{{dependsOn}}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - default
