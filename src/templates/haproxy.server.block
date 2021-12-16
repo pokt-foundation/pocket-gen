@@ -11,7 +11,7 @@ frontend {{nodeBranding}}{{inc}}
  http-request allow if version_endpoint
 
  # All v1 endpoints open
- acl open_endpoint path_reg -i ^\/v1\/(dispatch|relay|challenge|sim)
+ acl open_endpoint path_reg -i ^\/v1\/client\/(dispatch|relay|challenge|sim)
  http-request allow if open_endpoint
 
  # Base URL restricted
