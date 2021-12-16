@@ -6,7 +6,6 @@
     restart: unless-stopped
     ports:
       - "{{haproxyPortRange}}:{{haproxyPortRange}}"
-      - "8050:8050"
     volumes:
       - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
       - "../full.pem:/etc/ssl/full.pem"
