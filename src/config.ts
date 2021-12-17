@@ -20,7 +20,7 @@ export const haproxyAuth = (args['haproxyAuth']) ? args['haproxyAuth'] : 'user:p
 
 // docker-compose.yml
 export const nodeImage = (args['version']) ? `pocketfoundation/pocket-core:${args['version']}` : 'pocketfoundation/pocket-core:latest'
-export const nodeCPUs = '8'
+export const nodeCPUs = '16'
 export const nodeMemLimit = '8G'
 export const poktDataDirectory = `${baseDataDirectory}/${nodeBranding}`
 
